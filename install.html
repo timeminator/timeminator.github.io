@@ -1203,6 +1203,32 @@
       padding: 20px 24px;
     }
     .demo-note .pricing-note { text-wrap: balance; }
+    /* ── Variant mascots (Docker whale / PHP elephant) ── */
+    .variant-mascot {
+      flex: 0 0 auto; width: 128px; height: 128px; border-radius: 18px;
+      background: #fff; overflow: hidden;
+      border: 1px solid rgba(2, 8, 20, 0.06);
+      box-shadow: 0 10px 26px rgba(2, 8, 20, 0.22);
+    }
+    .variant-mascot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .dc-intro { display: flex; gap: 20px; align-items: flex-start; }
+    .dc-intro > div:last-child { min-width: 0; }
+    .dc-intro .variant-mascot { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35); border-color: rgba(255, 255, 255, 0.18); }
+    .variant-row {
+      display: flex; gap: 22px; align-items: center;
+      margin: 0 0 24px; padding: 24px 28px; border-radius: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, #eef2f7 100%);
+      border: 1px solid var(--color-divider);
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+    }
+    .variant-row .vr-body { min-width: 0; }
+    .variant-row h3 { margin: 0 0 8px; font-size: 20px; color: #101418; }
+    .variant-row p { margin: 0; color: #475569; line-height: 1.55; }
+    .variant-row strong { color: #101418; }
+    @media (max-width: 560px) {
+      .dc-intro { flex-direction: column; }
+      .variant-row { flex-direction: column; align-items: flex-start; }
+    }
   </style>
     <!-- Matomo (self-hosted, cookieless) -->
     <script>
@@ -1502,13 +1528,18 @@
         <h2>Download</h2>
 
         <div class="docker-card">
-          <div>
-            <h3>🐳 Run with Docker<span class="docker-recommended">Recommended</span></h3>
-            <p>Start the whole app with a single command &mdash; <strong>SQLite is built in, so there's no database server to set up</strong>. The same image runs on Docker Desktop, any cloud host, or Kubernetes, which makes it the fastest way to run Timeminator yourself.</p>
-            <div class="docker-badges">
-              <span class="docker-chip">Multi-arch &middot; amd64 + arm64</span>
-              <span class="docker-chip">SQLite built in</span>
-              <span class="docker-chip">No separate DB server</span>
+          <div class="dc-intro">
+            <div class="variant-mascot">
+              <img src="assets/mascots/variant-docker.jpg" width="470" height="470" loading="lazy" alt="Timeminator Docker whale mascot carrying containers">
+            </div>
+            <div>
+              <h3>Run with Docker<span class="docker-recommended">Recommended</span></h3>
+              <p>Start the whole app with a single command &mdash; <strong>SQLite is built in, so there's no database server to set up</strong>. The same image runs on Docker Desktop, any cloud host, or Kubernetes, which makes it the fastest way to run Timeminator yourself.</p>
+              <div class="docker-badges">
+                <span class="docker-chip">Multi-arch &middot; amd64 + arm64</span>
+                <span class="docker-chip">SQLite built in</span>
+                <span class="docker-chip">No separate DB server</span>
+              </div>
             </div>
           </div>
           <div class="docker-run">
@@ -1526,12 +1557,17 @@
           </div>
         </div>
 
-        <div class="grid">
-          <div class="card">
-            <span class="icon">🧩</span>
+        <div class="variant-row">
+          <div class="variant-mascot">
+            <img src="assets/mascots/variant-php.jpg" width="470" height="470" loading="lazy" alt="Timeminator PHP elephant mascot">
+          </div>
+          <div class="vr-body">
             <h3>Prefer classic PHP hosting?</h3>
             <p>No Docker needed either. Timeminator runs on <strong>PHP 8.1+</strong> with <strong>SQLite</strong> (zero-config) or MySQL/MariaDB, behind Apache or Nginx &mdash; the same web installer walks you through it.</p>
           </div>
+        </div>
+
+        <div class="grid">
           <div class="card">
             <span class="icon">📦</span>
             <h3>Download the release</h3>
@@ -1638,7 +1674,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p><strong>Timeminator</strong> – Self-hosted time tracking for SMBs &nbsp; | &nbsp; MIT (Community) or Pro License &nbsp; | &nbsp; PHP 8.1+ &nbsp; | &nbsp; MySQL / SQLite</p>
+      <p><strong>Timeminator</strong> – Self-hosted time tracking for SMBs &nbsp; | &nbsp; MIT (Community) or Pro License &nbsp; | &nbsp; Docker or PHP 8.1+ &nbsp; | &nbsp; MySQL / SQLite</p>
       <a class="fs-credit" href="https://felixschaller.com" target="_blank" rel="noopener">developed by <img src="fs-logo.svg" alt="FelixSchallerCOM"></a>
     </div>
   </footer>

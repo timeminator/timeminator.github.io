@@ -1025,6 +1025,51 @@
     .copy-btn:hover { background: rgba(56, 189, 248, 0.22); }
     .copy-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
     .copy-btn.copied { background: rgba(52, 211, 153, 0.18); border-color: rgba(52, 211, 153, 0.5); color: #6ee7b7; }
+    /* ── Variant mascots: Docker + PHP install options ── */
+    .variant-mascot {
+      flex: 0 0 auto;
+      width: 132px; height: 132px;
+      border-radius: 20px;
+      background: #fff;
+      overflow: hidden;
+      border: 1px solid rgba(2, 8, 20, 0.06);
+      box-shadow: 0 14px 34px rgba(2, 8, 20, 0.33);
+    }
+    .variant-mascot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .run-options h2 { margin-bottom: 14px; }
+    .run-options .section-intro {
+      color: rgba(226, 232, 240, 0.72);
+      max-width: 640px; margin: 0 0 34px; font-size: 15.5px;
+    }
+    .run-options .variants {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px;
+    }
+    .run-options .variant {
+      display: flex; gap: 20px; align-items: flex-start;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 14px; padding: 22px;
+    }
+    .run-options .variant-body { min-width: 0; }
+    .run-options .variant-body h3 { margin: 10px 0 8px; font-size: 20px; }
+    .run-options .variant-body p {
+      color: rgba(226, 232, 240, 0.80); font-size: 14.5px; line-height: 1.6; margin: 0 0 16px;
+    }
+    .variant-tag {
+      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase; color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.14); border: 1px solid rgba(16, 185, 129, 0.40);
+      padding: 3px 10px; border-radius: 999px;
+    }
+    .variant-tag.alt { color: #93c5fd; background: rgba(59, 130, 246, 0.14); border-color: rgba(59, 130, 246, 0.40); }
+    .run-options .variant-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-weight: 700; font-size: 13.5px; color: #ffffff;
+    }
+    .run-options .variant-link:hover { color: #bae6fd; }
+    @media (max-width: 560px) {
+      .run-options .variant { flex-direction: column; }
+    }
   </style>
     <!-- Matomo (self-hosted, cookieless) -->
     <script>
@@ -1128,6 +1173,37 @@
           <div class="stat-block">
             <div class="stat-label">Setup</div>
             <div class="stat-value">Zero-config · SQLite ready</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark run-options" id="run-options">
+      <div class="container">
+        <h2>Two ways to run it</h2>
+        <p class="section-intro">Same Timeminator, your data on your own machine either way &mdash; pick what fits your stack.</p>
+        <div class="variants">
+          <div class="variant">
+            <div class="variant-mascot">
+              <img src="assets/mascots/variant-docker.jpg" width="470" height="470" loading="lazy" alt="Timeminator Docker whale mascot carrying containers">
+            </div>
+            <div class="variant-body">
+              <span class="variant-tag">Recommended</span>
+              <h3>Docker image</h3>
+              <p>One container &mdash; SQLite is built in, so there's no PHP server and no database to set up. The same image runs on Docker Desktop, any cloud host or Kubernetes, on amd64 and arm64.</p>
+              <a class="variant-link" href="install.html#download" data-mtm="Variant|click|docker">Run it in 60 seconds &rarr;</a>
+            </div>
+          </div>
+          <div class="variant">
+            <div class="variant-mascot">
+              <img src="assets/mascots/variant-php.jpg" width="470" height="470" loading="lazy" alt="Timeminator PHP elephant mascot">
+            </div>
+            <div class="variant-body">
+              <span class="variant-tag alt">Classic hosting</span>
+              <h3>PHP web hosting</h3>
+              <p>Already have a web host? Timeminator runs on PHP 8.1+ with SQLite (zero-config) or MySQL/MariaDB, behind Apache or Nginx &mdash; the same web installer walks you through it.</p>
+              <a class="variant-link" href="install.html#download" data-mtm="Variant|click|php">See the PHP setup &rarr;</a>
+            </div>
           </div>
         </div>
       </div>
