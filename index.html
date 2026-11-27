@@ -1000,31 +1000,51 @@
       }
     }
 
-    /* Hero Docker command block */
-    .hero-run { max-width: 580px; margin: 0 0 26px; }
-    .docker-run {
-      position: relative;
-      background: #060d16; border: 1px solid rgba(148, 163, 184, 0.22);
-      border-radius: 10px; padding: 16px 18px;
+    /* ── Variant mascots: Docker + PHP install options ── */
+    .variant-mascot {
+      flex: 0 0 auto;
+      width: 132px; height: 132px;
+      border-radius: 20px;
+      background: #fff;
+      overflow: hidden;
+      border: 1px solid rgba(2, 8, 20, 0.06);
+      box-shadow: 0 14px 34px rgba(2, 8, 20, 0.33);
     }
-    .docker-run .cmd {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 12.5px; color: #d1fae5; line-height: 1.6; margin: 0; padding-right: 70px;
-      white-space: pre-wrap; word-break: break-word;
+    .variant-mascot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .run-options h2 { margin-bottom: 14px; }
+    .run-options .section-intro {
+      color: rgba(226, 232, 240, 0.72);
+      max-width: 640px; margin: 0 0 34px; font-size: 15.5px;
     }
-    .docker-run .prompt { color: #475569; user-select: none; }
-    .docker-run .step { color: rgba(226, 232, 240, 0.62); font-size: 12.5px; margin: 12px 0 0; }
-    .docker-run .step strong { color: #cbd5e1; }
-    .copy-btn {
-      position: absolute; top: 11px; right: 11px; display: inline-flex; align-items: center; gap: 6px;
-      font: inherit; font-size: 12px; font-weight: 600; cursor: pointer;
-      padding: 6px 11px; border-radius: 7px; color: #bae6fd;
-      background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.32);
-      transition: background .15s ease, color .15s ease, border-color .15s ease;
+    .run-options .variants {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px;
     }
-    .copy-btn:hover { background: rgba(56, 189, 248, 0.22); }
-    .copy-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
-    .copy-btn.copied { background: rgba(52, 211, 153, 0.18); border-color: rgba(52, 211, 153, 0.5); color: #6ee7b7; }
+    .run-options .variant {
+      display: flex; gap: 20px; align-items: flex-start;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 14px; padding: 22px;
+    }
+    .run-options .variant-body { min-width: 0; }
+    .run-options .variant-body h3 { margin: 10px 0 8px; font-size: 20px; }
+    .run-options .variant-body p {
+      color: rgba(226, 232, 240, 0.80); font-size: 14.5px; line-height: 1.6; margin: 0 0 16px;
+    }
+    .variant-tag {
+      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase; color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.14); border: 1px solid rgba(16, 185, 129, 0.40);
+      padding: 3px 10px; border-radius: 999px;
+    }
+    .variant-tag.alt { color: #93c5fd; background: rgba(59, 130, 246, 0.14); border-color: rgba(59, 130, 246, 0.40); }
+    .run-options .variant-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-weight: 700; font-size: 13.5px; color: #ffffff;
+    }
+    .run-options .variant-link:hover { color: #bae6fd; }
+    @media (max-width: 560px) {
+      .run-options .variant { flex-direction: column; }
+    }
   </style>
     <!-- Matomo (self-hosted, cookieless) -->
     <script>
@@ -1085,19 +1105,6 @@
         <div class="hero-text">
           <h1>Time Tracking That Doesn't Complicate, It Clarifies</h1>
           <p>Self-hosted, project-based time tracking for SMBs — <strong style="color:#bae6fd">one container, no PHP server, your data stays with you</strong>. Live timer, budget-vs-actual analytics and team sentiment, all on your own machine.</p>
-          <div class="hero-run">
-            <div class="docker-run">
-              <button id="docker-copy-home" class="copy-btn" type="button" aria-label="Copy the Docker command"
-                      data-copy="docker run -d --name timeminator -p 8080:80 -v tm_data:/var/www/html/data freshnfunky/timeminator-community:latest">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-                <span class="copy-label">Copy</span>
-              </button>
-              <p class="cmd"><span class="prompt">$ </span>docker run -d --name timeminator \
-  -p 8080:80 -v tm_data:/var/www/html/data \
-  freshnfunky/timeminator-community:latest</p>
-              <p class="step">Then open <strong>http://localhost:8080</strong> and run the installer. Runs on amd64 + arm64 — or on classic PHP 8.1+ hosting.</p>
-            </div>
-          </div>
           <div class="hero-buttons">
             <a class="cta-button" href="install.html#download" data-mtm="CTA|click|run-docker-hero">Run it in 60s →</a>
             <a class="cta-demo" href="https://demo.timeminator.com" target="_blank" rel="noopener" data-mtm="CTA|click|demo-hero">Try the Demo</a>
@@ -1128,6 +1135,37 @@
           <div class="stat-block">
             <div class="stat-label">Setup</div>
             <div class="stat-value">Zero-config · SQLite ready</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark run-options" id="run-options">
+      <div class="container">
+        <h2>Two ways to run it</h2>
+        <p class="section-intro">Same Timeminator, your data on your own machine either way &mdash; pick what fits your stack.</p>
+        <div class="variants">
+          <div class="variant">
+            <div class="variant-mascot">
+              <img src="assets/mascots/variant-docker.jpg" width="470" height="470" loading="lazy" alt="Timeminator Docker whale mascot carrying containers">
+            </div>
+            <div class="variant-body">
+              <span class="variant-tag">Recommended</span>
+              <h3>Docker image</h3>
+              <p>One container &mdash; SQLite is built in, so there's no PHP server and no database to set up. The same image runs on Docker Desktop, any cloud host or Kubernetes, on amd64 and arm64.</p>
+              <a class="variant-link" href="install.html#download" data-mtm="Variant|click|docker">Run it in 60 seconds &rarr;</a>
+            </div>
+          </div>
+          <div class="variant">
+            <div class="variant-mascot">
+              <img src="assets/mascots/variant-php.jpg" width="470" height="470" loading="lazy" alt="Timeminator PHP elephant mascot">
+            </div>
+            <div class="variant-body">
+              <span class="variant-tag alt">Classic hosting</span>
+              <h3>PHP web hosting</h3>
+              <p>Already have a web host? Timeminator runs on PHP 8.1+ with SQLite (zero-config) or MySQL/MariaDB, behind Apache or Nginx &mdash; the same web installer walks you through it.</p>
+              <a class="variant-link" href="install.html#download" data-mtm="Variant|click|php">See the PHP setup &rarr;</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1434,33 +1472,6 @@
           _paq.push(['trackEvent', p[0] || 'CTA', p[1] || 'click', p[2] || '']);
         });
       });
-
-      var copyBtn = document.getElementById('docker-copy-home');
-      if (copyBtn) {
-        var label = copyBtn.querySelector('.copy-label');
-        copyBtn.addEventListener('click', function () {
-          var cmd = copyBtn.getAttribute('data-copy') || '';
-          var done = function (ok) {
-            if (window._paq) _paq.push(['trackEvent', 'CTA', 'copy-docker-command', 'hero']);
-            if (!ok) return;
-            copyBtn.classList.add('copied');
-            if (label) label.textContent = 'Copied';
-            setTimeout(function () { copyBtn.classList.remove('copied'); if (label) label.textContent = 'Copy'; }, 1800);
-          };
-          var legacy = function () {
-            try {
-              var t = document.createElement('textarea');
-              t.value = cmd; t.setAttribute('readonly', '');
-              t.style.position = 'absolute'; t.style.left = '-9999px';
-              document.body.appendChild(t); t.select();
-              var ok = document.execCommand('copy'); document.body.removeChild(t); return ok;
-            } catch (e) { return false; }
-          };
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(cmd).then(function () { done(true); }, function () { done(legacy()); });
-          } else { done(legacy()); }
-        });
-      }
     })();
   </script>
 </body>
