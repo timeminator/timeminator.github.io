@@ -1059,10 +1059,11 @@
         <div class="hero-text">
           <h1>Time Tracking That Doesn't Complicate, It Clarifies</h1>
           <p>Self-hosted, project-based time tracker built for SMBs. No bloat, no SaaS lock-in: live timer, custom categories, budget-vs-actual analytics, and team sentiment tracking — all on your server.</p>
+          <p style="font-size:15px;color:rgba(255,255,255,0.72);margin:0 0 28px;max-width:640px">Runs as a single <strong style="color:#bae6fd">Docker</strong> container (amd64 + arm64) — or on classic PHP hosting.</p>
           <div class="hero-buttons">
-            <a class="cta-demo" href="https://demo.timeminator.com" target="_blank" rel="noopener">Try the Demo</a>
-            <button class="cta-button" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">Explore Features</button>
-            <a class="cta-secondary" href="install.html#download">Download</a>
+            <a class="cta-demo" href="https://demo.timeminator.com" target="_blank" rel="noopener" data-mtm="CTA|click|demo-hero">Try the Demo</a>
+            <a class="cta-button" href="install.html#download" data-mtm="CTA|click|run-docker-hero">Run it in 60s →</a>
+            <a class="cta-secondary" href="#features">Explore Features</a>
           </div>
         </div>
       </div>
@@ -1076,7 +1077,7 @@
         <div class="grid cols-4">
           <div class="stat-block">
             <div class="stat-label">Deployment</div>
-            <div class="stat-value">PHP 8.1+ · MySQL / SQLite</div>
+            <div class="stat-value">One Docker container · or PHP 8.1+</div>
           </div>
           <div class="stat-block">
             <div class="stat-label">Auditable</div>
@@ -1381,6 +1382,19 @@
 
       window.addEventListener('resize', function () {
         if (window.innerWidth > 768) close();
+      });
+    })();
+  </script>
+
+  <script>
+    // Matomo events for the hero CTAs, so we can compare demo vs. self-host intent.
+    (function () {
+      document.querySelectorAll('[data-mtm]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          if (!window._paq) return;
+          var p = (el.getAttribute('data-mtm') || '').split('|');
+          _paq.push(['trackEvent', p[0] || 'CTA', p[1] || 'click', p[2] || '']);
+        });
       });
     })();
   </script>
