@@ -999,6 +999,32 @@
         padding: 12px 8px;
       }
     }
+
+    /* Hero Docker command block */
+    .hero-run { max-width: 580px; margin: 0 0 26px; }
+    .docker-run {
+      position: relative;
+      background: #060d16; border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 10px; padding: 16px 18px;
+    }
+    .docker-run .cmd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12.5px; color: #d1fae5; line-height: 1.6; margin: 0; padding-right: 70px;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .docker-run .prompt { color: #475569; user-select: none; }
+    .docker-run .step { color: rgba(226, 232, 240, 0.62); font-size: 12.5px; margin: 12px 0 0; }
+    .docker-run .step strong { color: #cbd5e1; }
+    .copy-btn {
+      position: absolute; top: 11px; right: 11px; display: inline-flex; align-items: center; gap: 6px;
+      font: inherit; font-size: 12px; font-weight: 600; cursor: pointer;
+      padding: 6px 11px; border-radius: 7px; color: #bae6fd;
+      background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.32);
+      transition: background .15s ease, color .15s ease, border-color .15s ease;
+    }
+    .copy-btn:hover { background: rgba(56, 189, 248, 0.22); }
+    .copy-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+    .copy-btn.copied { background: rgba(52, 211, 153, 0.18); border-color: rgba(52, 211, 153, 0.5); color: #6ee7b7; }
   </style>
     <!-- Matomo (self-hosted, cookieless) -->
     <script>
@@ -1058,11 +1084,23 @@
       <div class="container">
         <div class="hero-text">
           <h1>Time Tracking That Doesn't Complicate, It Clarifies</h1>
-          <p>Self-hosted, project-based time tracker built for SMBs. No bloat, no SaaS lock-in: live timer, custom categories, budget-vs-actual analytics, and team sentiment tracking — all on your server.</p>
-          <p style="font-size:15px;color:rgba(255,255,255,0.72);margin:0 0 28px;max-width:640px">Runs as a single <strong style="color:#bae6fd">Docker</strong> container (amd64 + arm64) — or on classic PHP hosting.</p>
+          <p>Self-hosted, project-based time tracking for SMBs — <strong style="color:#bae6fd">one container, no PHP server, your data stays with you</strong>. Live timer, budget-vs-actual analytics and team sentiment, all on your own machine.</p>
+          <div class="hero-run">
+            <div class="docker-run">
+              <button id="docker-copy-home" class="copy-btn" type="button" aria-label="Copy the Docker command"
+                      data-copy="docker run -d --name timeminator -p 8080:80 -v tm_data:/var/www/html/data freshnfunky/timeminator-community:latest">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                <span class="copy-label">Copy</span>
+              </button>
+              <p class="cmd"><span class="prompt">$ </span>docker run -d --name timeminator \
+  -p 8080:80 -v tm_data:/var/www/html/data \
+  freshnfunky/timeminator-community:latest</p>
+              <p class="step">Then open <strong>http://localhost:8080</strong> and run the installer. Runs on amd64 + arm64 — or on classic PHP 8.1+ hosting.</p>
+            </div>
+          </div>
           <div class="hero-buttons">
-            <a class="cta-demo" href="https://demo.timeminator.com" target="_blank" rel="noopener" data-mtm="CTA|click|demo-hero">Try the Demo</a>
             <a class="cta-button" href="install.html#download" data-mtm="CTA|click|run-docker-hero">Run it in 60s →</a>
+            <a class="cta-demo" href="https://demo.timeminator.com" target="_blank" rel="noopener" data-mtm="CTA|click|demo-hero">Try the Demo</a>
             <a class="cta-secondary" href="#features">Explore Features</a>
           </div>
         </div>
@@ -1350,7 +1388,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p><strong>Timeminator</strong> – Self-hosted time tracking for SMBs &nbsp; | &nbsp; MIT (Community) or Pro License &nbsp; | &nbsp; PHP 8.1+ &nbsp; | &nbsp; MySQL / SQLite</p>
+      <p><strong>Timeminator</strong> – Self-hosted time tracking for SMBs &nbsp; | &nbsp; MIT (Community) or Pro License &nbsp; | &nbsp; Docker or PHP 8.1+ &nbsp; | &nbsp; MySQL / SQLite</p>
       <a class="fs-credit" href="https://felixschaller.com" target="_blank" rel="noopener">developed by <img src="fs-logo.svg" alt="FelixSchallerCOM"></a>
     </div>
   </footer>
@@ -1396,6 +1434,33 @@
           _paq.push(['trackEvent', p[0] || 'CTA', p[1] || 'click', p[2] || '']);
         });
       });
+
+      var copyBtn = document.getElementById('docker-copy-home');
+      if (copyBtn) {
+        var label = copyBtn.querySelector('.copy-label');
+        copyBtn.addEventListener('click', function () {
+          var cmd = copyBtn.getAttribute('data-copy') || '';
+          var done = function (ok) {
+            if (window._paq) _paq.push(['trackEvent', 'CTA', 'copy-docker-command', 'hero']);
+            if (!ok) return;
+            copyBtn.classList.add('copied');
+            if (label) label.textContent = 'Copied';
+            setTimeout(function () { copyBtn.classList.remove('copied'); if (label) label.textContent = 'Copy'; }, 1800);
+          };
+          var legacy = function () {
+            try {
+              var t = document.createElement('textarea');
+              t.value = cmd; t.setAttribute('readonly', '');
+              t.style.position = 'absolute'; t.style.left = '-9999px';
+              document.body.appendChild(t); t.select();
+              var ok = document.execCommand('copy'); document.body.removeChild(t); return ok;
+            } catch (e) { return false; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(cmd).then(function () { done(true); }, function () { done(legacy()); });
+          } else { done(legacy()); }
+        });
+      }
     })();
   </script>
 </body>
